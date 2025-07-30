@@ -4,8 +4,7 @@ const bodyParser = require("body-parser");
 
 const { PORT } = require("./config/server-config");
 
-// const ApiRoutes = require("./routes/index");
-
+// const ApiRoutes = require("./routes/index"); 
 
 const SetUpandStartServer = async () => {
     // create the express object
@@ -18,7 +17,9 @@ const SetUpandStartServer = async () => {
 
     app.listen(PORT, async () => {
         console.log(`Server Started at ${PORT}`);
+
     });
+
 };
 
 SetUpandStartServer(); 
