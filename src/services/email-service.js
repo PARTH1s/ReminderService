@@ -21,12 +21,9 @@ const sendBasicEmail = async (from, to, subject, mailBody) => {
     }
 };
 
-/**
- * Fetch pending notification tickets (with optional timestamp filter)
- */
-const fetchingPendingMails = async (timestamp = new Date()) => {
+const fetchingPendingMails = async (timestamp) => {
     try {
-        const tickets = await repo.getAll({ status: 'PENDING', notificationTime: timestamp });
+        const tickets = await repo.get({ status: 'PENDING' });
         return tickets;
     } catch (error) {
         console.error('Error fetching pending mails:', error.message);
@@ -34,9 +31,6 @@ const fetchingPendingMails = async (timestamp = new Date()) => {
     }
 };
 
-/**
- * Create a new notification ticket
- */
 const createNotification = async (data) => {
     try {
         const ticket = await repo.create(data);
@@ -47,8 +41,21 @@ const createNotification = async (data) => {
     }
 };
 
+
+const updateTicket = async (ticketId, data) => {
+    try {
+        const ticket = await repo.update(ticketId, data);
+        return ticket;
+    } catch (error) {
+        console.error('Error updating ticket:', error.message);
+        throw new Error('Failed to update ticket');
+    }
+};
+
+
 module.exports = {
     sendBasicEmail,
     fetchingPendingMails,
-    createNotification
+    createNotification,
+    updateTicket
 };
