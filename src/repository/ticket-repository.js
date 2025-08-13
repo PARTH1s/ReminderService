@@ -3,6 +3,7 @@ const { Op } = require('sequelize');
 
 class TicketRepository {
 
+    // Fetch all notification tickets
     async getAll() {
         try {
             return await NotificationTicket.findAll();
@@ -12,6 +13,7 @@ class TicketRepository {
         }
     }
 
+    // Create a new notification ticket
     async create(data) {
         try {
             return await NotificationTicket.create(data);
@@ -21,10 +23,11 @@ class TicketRepository {
         }
     }
 
+    // Get tickets based on status and notification time
     async get(filter) {
         try {
-            const ticket =  await NotificationTicket.findAll({
-                where:{
+            const ticket = await NotificationTicket.findAll({
+                where: {
                     status: filter.status,
                     notificationTime: {
                         [Op.lte]: new Date()
@@ -33,16 +36,16 @@ class TicketRepository {
             });
             return ticket;
         } catch (error) {
-            console.error('Error fetching tickets:', error);
+            console.error('Error fetching tickets with filter:', error);
             throw new Error('Failed to fetch tickets');
         }
     }
 
-    async update(ticketId,data) {
+    // Update ticket status by ID
+    async update(ticketId, data) {
         try {
             const ticket = await NotificationTicket.findByPk(ticketId);
-            if(data.status)
-                ticket.status=data.status;
+            if (data.status) ticket.status = data.status;
             await ticket.save();
             return ticket;
         } catch (error) {

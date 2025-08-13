@@ -1,8 +1,9 @@
 const { TicketService } = require('../services/index');
 
+// Controller to create an email reminder notification
 const create = async (req, res) => {
     try {
-        const response = await TicketService.createNotification(req.body);
+        const response = await TicketService.createNotification(req.body);  
         return res.status(201).json({
             success: true,
             data: response,
@@ -10,7 +11,7 @@ const create = async (req, res) => {
             message: 'Successfully registered an email reminder'
         });
     } catch (error) {
-        console.error('Error in create controller:', error);
+        console.error('Error in create controller:', error); 
         return res.status(500).json({
             success: false,
             data: {},

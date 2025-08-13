@@ -1,9 +1,10 @@
-const dotenv = require('dotenv')
+const dotenv = require('dotenv');
 
-dotenv.config()
+// Load environment variables from .env file
+dotenv.config();
 
 module.exports = {
-    PORT: process.env.PORT,
-    EMAIL_ID: process.env.EMAIL_ID,
-    EMAIL_PASSWORD: process.env.EMAIL_PASS
-}
+    PORT: process.env.PORT,                 // Application port
+    EMAIL_ID: process.env.EMAIL_ID,         // Email ID for sending mails
+    EMAIL_PASSWORD: process.env.EMAIL_PASS  // Email password or app-specific password
+};
