@@ -3,16 +3,11 @@ const { TicketRepository } = require('../repository/index');
 const repo = new TicketRepository();
 
 /**
- * Send a basic email using pre-configured transporter
+ * Send a basic email using the configured transporter
  */
 const sendBasicEmail = async (from, to, subject, mailBody) => {
     try {
-        const info = await sender.sendMail({
-            from,
-            to,
-            subject,
-            text: mailBody
-        });
+        const info = await sender.sendMail({ from, to, subject, text: mailBody });
         console.log('Email sent successfully:', info.messageId);
         return info;
     } catch (error) {
@@ -21,7 +16,10 @@ const sendBasicEmail = async (from, to, subject, mailBody) => {
     }
 };
 
-const fetchingPendingMails = async (timestamp) => {
+/**
+ * Fetch all pending email tickets
+ */
+const fetchingPendingMails = async () => {
     try {
         const tickets = await repo.get({ status: 'PENDING' });
         return tickets;
@@ -31,6 +29,9 @@ const fetchingPendingMails = async (timestamp) => {
     }
 };
 
+/**
+ * Create a new email notification ticket
+ */
 const createNotification = async (data) => {
     try {
         const ticket = await repo.create(data);
@@ -41,7 +42,9 @@ const createNotification = async (data) => {
     }
 };
 
-
+/**
+ * Update an existing email ticket
+ */
 const updateTicket = async (ticketId, data) => {
     try {
         const ticket = await repo.update(ticketId, data);
@@ -51,7 +54,6 @@ const updateTicket = async (ticketId, data) => {
         throw new Error('Failed to update ticket');
     }
 };
-
 
 module.exports = {
     sendBasicEmail,
